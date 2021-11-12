@@ -1,21 +1,17 @@
 const mongoose = require("mongoose");
-// const config = require("config");
-// const db = config.get("mongoURI");
+const dotenv = require("dotenv");
+dotenv.config();
 
-const db = process.env.URI_MONGO;
-
-// mongoose
-//   .connect(process.env.URI_MONGO, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//     useCreateIndex: true,
-//     useFindAndModify: false
-//   })
-//   .then(() => console.log("MongoDB Connected..."))
-//   .catch((err) => console.log(err));
 const connectDB = async () => {
   try {
-    await mongoose.connect(db, { useNewUrlParser: true });
+    await mongoose
+      .connect(process.env.URI_MONGO, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+        useFindAndModify: false
+      })
+      .then(() => console.log("MongoDB Connected..."));
 
     console.log("MongoDB is Connected...");
   } catch (err) {
@@ -23,5 +19,4 @@ const connectDB = async () => {
     process.exit(1);
   }
 };
-
 module.exports = connectDB;
